@@ -5,33 +5,44 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-public class FlipkartTestNG extends BaseTest {
+public class FlipkartTestN extends BaseTest {
     @Test
-    public void testMethod() {       
+    public void testMethod() {
         driver.get("https://www.flipkart.com/");
 
         try {
             WebElement popUpCloseButton = driver.findElement(By.cssSelector("button._2KpZ6l._2doB4z"));
             popUpCloseButton.click();
-        } catch (Exception ignored) {
-            
+        } catch (NoSuchElementException ignored) {
+
         }
-        
+
         WebElement mobileMenu = driver.findElement(By.linkText("Mobiles"));
         mobileMenu.click();
 
+        sleep(2000);
+
+        applyBrandFilter("Samsung", "//div[text()='SAMSUNG']");
+        applyBrandFilter("Apple", "//div[text()='APPLE']");
+        applyBrandFilter("Realme", "//div[text()='realme']");
+    }
+
+    private void applyBrandFilter(String brand, String xpath) {
         try {
-            Thread.sleep(2000);
+            WebElement brandFilter = driver.findElement(By.xpath(xpath));
+            brandFilter.click();
+            // Wait for the filter to be applied
+            sleep(2000);
+        } catch (NoSuchElementException e) {
+            System.out.println(brand + " filter not found");
+        }
+    }
+
+    private void sleep(int milliseconds) {
+        try {
+            Thread.sleep(milliseconds);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
-
-        WebElement checkBox = null;
-        try {
-            checkBox = driver.findElement(By.xpath("//div[contains(@class, '_1p7h2j')]"));
-            checkBox.click();
-        } catch (NoSuchElementException e) {
-            System.out.println("Checkbox not found");
         }
     }
 }
