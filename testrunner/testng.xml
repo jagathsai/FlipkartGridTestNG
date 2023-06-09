@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Selenium Tests">
+    <test name="Test Suite">
+        <parameter name="browser" value="chrome"/>
+        <parameter name="platform" value="WINDOWS"/>
+        <classes>
+            <class name="TestClass1"/>
+            <class name="TestClass2"/>
+        </classes>
+    </test>
+</suite>
